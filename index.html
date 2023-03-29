@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Library App</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <div class="header">
+      <h1>My Library</h1>
+    </div>
+    <div class="main">
+      <div class="controls">
+        <button class="btn add">Add new book</button>
+      </div>
+      <div class="modal">
+        <form class="add-book-form">
+          <input
+            type="text"
+            class="input"
+            name="title"
+            id="title"
+            placeholder="Title"
+            required
+            maxlength="100"
+          />
+          <input
+            type="text"
+            class="input"
+            name="author"
+            id="author"
+            placeholder="Author"
+            required
+            maxlength="100"
+          />
+          <input
+            type="number"
+            class="input"
+            name="pagecount"
+            id="pagecount"
+            placeholder="# of pages"
+            max="9999"
+          />
+          <div class="status">
+            <label for="is-read">Have you read it?</label>
+            <input
+              type="checkbox"
+              class="checkbox"
+              name="is-read"
+              id="is-read"
+            />
+          </div>
+          <button type="submit" class="btn submit">Submit</button>
+        </form>
+      </div>
+      <div class="books">
+        <div class="book-item">
+          <div class="del">X</div>
+          <div class="book-info">
+            <p class="title"><strong>Title:</strong></p>
+            <p class="author"><strong>Author:</strong></p>
+            <p class="numpages"><strong># Pages:</strong></p>
+            <p class="read">Read</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="footer">
+      <p>&copy; Alex Wurm</p>
+    </div>
+    <script src="./main.js"></script>
+  </body>
+</html>
