@@ -92,6 +92,8 @@ body {
   position: relative;
   top: -1.5rem;
   right: -1.5rem;
+
+  cursor: pointer;
 }
 
 .book-info {
@@ -99,6 +101,7 @@ body {
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
+  gap: 0.8rem;
 }
 
 .book-info p {
@@ -110,10 +113,16 @@ body {
   position: relative;
 }
 
+strong::after {
+  content: ' ';
+}
+
 p.read {
   text-align: center;
   font-weight: 700;
   border-radius: 5px;
+
+  cursor: pointer;
 }
 
 .modal {
@@ -163,6 +172,8 @@ label {
   font-family: inherit;
   font-weight: 700;
   border-style: none;
+
+  cursor: pointer;
 }
 
 .btn.add {
