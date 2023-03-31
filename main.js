@@ -1,4 +1,5 @@
 // Variables
+const body = document.querySelector('body');
 
 // Functions
 
@@ -18,6 +19,7 @@ function Book(name, author, pagecount, status) {
 function addBookToLibrary(title, author, pagecount, isread) {
   const newBook = new Book(title, author, pagecount, isread);
   myLibrary.push(newBook);
+  return myLibrary.indexOf(newBook);
 }
 
 function cleanupForm() {
@@ -37,7 +39,7 @@ function createBookFromInput(e) {
   const isread = document.getElementById('is-read').checked;
 
   // Create new Book object and add to myLibrary array
-  addBookToLibrary(title, author, pagecount, isread);
+  const booknumber = addBookToLibrary(title, author, pagecount, isread);
 
   // Create Book Item
   const bookitm = document.createElement('div');
@@ -47,6 +49,8 @@ function createBookFromInput(e) {
   const delbtn = document.createElement('div');
   delbtn.classList.add('del');
   delbtn.textContent = 'X';
+  console.log(`Book ${booknumber + 1} added to your library`);
+  delbtn.bookNumber = booknumber;
 
   // Create book info div
   const bookinfo = document.createElement('div');
@@ -78,9 +82,9 @@ function createBookFromInput(e) {
 
   const a3 = document.createElement('strong');
   a3.textContent = '# Pages:';
-  a3.insertAdjacentText(`afterend`, `${pagecount}`);
 
   pageblock.appendChild(a3);
+  a3.insertAdjacentText(`afterend`, `${pagecount}`);
 
   // Create read status text label
   const readblock = document.createElement('p');
@@ -107,8 +111,25 @@ function createBookFromInput(e) {
   const books = document.querySelector('.books');
   books.appendChild(bookitm);
 
+  // Add event listener on read block
+  setReadListener(readblock);
+  setDeleteListener(delbtn);
+
   // Cleanup (e.g., closing out modal)
   cleanupForm();
+}
+
+function deleteBook(e) {
+  const el = e.target;
+  const booknumber = el.bookNumber;
+
+  myLibrary.splice(booknumber, 1);
+  console.log(`Book ${booknumber + 1} removed from your library`);
+
+  const delbook = el.parentElement;
+  delbook.remove();
+
+  updateBooks();
 }
 
 function activateModal() {
@@ -117,10 +138,39 @@ function activateModal() {
 }
 
 function closeModal(e) {
-  console.log('help');
   if (e.key == 'Escape' && modal.classList.contains('active')) {
     cleanupForm();
   }
+}
+
+function updateBooks() {
+  const delbtns = document.querySelectorAll('.del');
+
+  delbtns.forEach(
+    (btn) =>
+      (btn.bookNumber = myLibrary.findIndex(
+        (book) => `Title:${book.name}` == btn.nextSibling.firstChild.textContent
+      ))
+  );
+}
+
+function toggleRead(e) {
+  console.log('hello');
+  if (e.target.textContent == 'Not Read') {
+    e.target.textContent = 'Read';
+    e.target.style.backgroundColor = 'green';
+  } else {
+    e.target.textContent = 'Not Read';
+    e.target.style.backgroundColor = 'red';
+  }
+}
+
+function setReadListener(el) {
+  el.addEventListener('click', toggleRead);
+}
+
+function setDeleteListener(el) {
+  el.addEventListener('click', deleteBook);
 }
 
 // Interactions
@@ -133,11 +183,3 @@ formbtn.addEventListener('click', createBookFromInput);
 const modal = document.querySelector('.modal');
 
 document.addEventListener('keydown', closeModal);
-
-document.addEventListener('click', function (event) {
-  if (event.target.closest('.modal')) {
-    return;
-  } else if (modal.classList.contains('active')) {
-    cleanupForm();
-  }
-});
