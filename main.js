@@ -5,13 +5,28 @@ const body = document.querySelector('body');
 
 let myLibrary = [];
 
-function Book(name, author, pagecount, status) {
-  this.name = name;
-  this.author = author;
-  this.pagecount = pagecount;
-  this.status = status;
+// Part 2: Revisit project and re-write using classes
 
-  this.info = function () {
+// function Book(name, author, pagecount, status) {
+//   this.name = name;
+//   this.author = author;
+//   this.pagecount = pagecount;
+//   this.status = status;
+
+//   this.info = function () {
+//     return `${name} by ${author}, ${pagecount} pages, ${status}`;
+//   };
+// }
+
+class Book {
+  constructor(name, author, pagecount, status) {
+    this.name = name;
+    this.author = author;
+    this.pagecount = pagecount;
+    this.status = status;
+  }
+
+  info = () => {
     return `${name} by ${author}, ${pagecount} pages, ${status}`;
   };
 }
